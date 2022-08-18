@@ -1,24 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import './style/App.css';
+import {Routes, Route} from 'react-router-dom';
+import { Markets } from './components/Markets';
+import { Assets } from './components/Assets';
+
+
+const api = 'https://api.binance.com';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path='/markets' element={<Markets api={api}/>}/>
+      <Route path='/' element={<Assets />}/>
+      <Route path='*' element={<Assets />}/>
+    </Routes>
   );
 }
 
