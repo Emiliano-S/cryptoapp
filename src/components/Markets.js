@@ -51,7 +51,7 @@ export function Markets({api}){
 
     useEffect(()=>{
         handleSearch(input)
-    },[input]);
+    },[input, data]);
 
 
 
