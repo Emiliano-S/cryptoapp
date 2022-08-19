@@ -25,14 +25,13 @@ const columns = [
 ]
 
 export function Markets({api}){
-    const {data1, error1, data2, error2} = useFetchApi(api);
+    let {data} = useFetchApi(api);
 
-    console.log(data1)
 
     return(
         <DataTable
             columns={columns}
-            data={[data1, data2]}
+            data={data}
         />
     )
 }
