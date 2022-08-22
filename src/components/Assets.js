@@ -4,26 +4,12 @@ import KitchenSinkStory from 'react-data-table-component';
 
 const columns = [
     {
-        name: 'Nome mercato',
-        selector: row => row.symbol,
-        sortable: true,
-    },
-    {
         name: 'Base asset',
         selector: row => row.baseAsset,
     },
     {
-        name: 'Quote asset',
-        selector: row => row.quoteAsset,
-    },
-    {
-        name: 'Prezzo',
-        selector: row => row.price,
-    },
-    {
-        name: 'Variazione 24h',
-        selector: row => row.priceChangePercent,
-        sortable: true,
+        name: 'Quantity',
+        selector: row => row.baseAssetQuantity,
     }
 ]
 

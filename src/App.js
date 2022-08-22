@@ -16,8 +16,8 @@ function App() {
       <Routes>
         <Route path='/markets' element={<Markets data={data} loading={loading}/>}/>
         <Route path='/assets' element={<Assets data={data} />}/>
-        <Route path='/' element={<Assets />}/>
-        <Route path='*' element={<Assets />}/>
+        <Route path='/' element={<Assets data={data} />}/>
+        <Route path='*' element={<Assets data={data} />}/>
       </Routes>
     </>
   );

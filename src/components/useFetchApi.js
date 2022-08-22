@@ -10,6 +10,7 @@ export function useFetchApi(api){
     const {data: dataInfo, error: errorInfo} = useSWR("https://api.binance.com/api/v3/exchangeInfo", fetcher);
     let error;
     let data = [];
+    let baseAssetArr = [];
 
     if(dataPrice !== undefined && data24hr !== undefined && dataInfo !== undefined){
         data = [...dataPrice];
@@ -19,6 +20,10 @@ export function useFetchApi(api){
             baseAsset: dataInfo.symbols[index].baseAsset,
             quoteAsset: dataInfo.symbols[index].quoteAsset
         }));
+        baseAssetArr = dataInfo.symbols.map((coin, index) => {
+                return baseAssetArr.indexOf(coin.baseAsset) === -1 ? baseAssetArr.push({baseAsset: coin.baseAsset}) : console.log("Già presente")}
+            );
+            console.log(baseAssetArr);
     }
 
     return{
