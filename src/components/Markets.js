@@ -27,8 +27,7 @@ const columns = [
     }
 ]
 
-export function Markets({api}){
-    const {data} = useFetchApi(api);
+export function Markets({data},{loading}){
     const [input, setInput] = useState("");
     let [list, setList] = useState(data);
 
@@ -53,9 +52,6 @@ export function Markets({api}){
         handleSearch(input)
     },[input, data]);
 
-
-
-
     return(
         <div>
             <div>
@@ -70,6 +66,7 @@ export function Markets({api}){
                     fixedHeaderScrollHeight="300px"
                     pagination
                     responsive
+                    progressPending={loading}
                     subHeaderAlign="right"
                     subHeaderWrap
                 />

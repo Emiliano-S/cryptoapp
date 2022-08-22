@@ -8,17 +8,23 @@ export function useFetchApi(api){
     const {data: dataPrice , error: errorPrice} = useSWR("https://api.binance.com/api/v3/ticker/price", fetcher);
     const {data: data24hr, error: error24hr} = useSWR("https://api.binance.com/api/v3/ticker/24hr", fetcher);
     const {data: dataInfo, error: errorInfo} = useSWR("https://api.binance.com/api/v3/exchangeInfo", fetcher);
+    let error;
     let data = [];
-
-    /* Una volta fetchato viene popolato l'array data con dataPrice (Perché lui per primo? Boh, è la prima chiamata fetch) e sucessivamente vengo aggiunte le righe, presenti nei fetch 24hr e echangeInfo, richieste da visualizzare nelle tabelle */
 
     if(dataPrice !== undefined && data24hr !== undefined && dataInfo !== undefined){
         data = [...dataPrice];
-        data = data.map((coin, index) => ({...coin, priceChangePercent: data24hr[index].priceChangePercent, baseAsset: dataInfo.symbols[index].baseAsset, quoteAsset: dataInfo.symbols[index].quoteAsset}))
+        data = data.map((coin, index) => ({
+            ...coin,
+            priceChangePercent: data24hr[index].priceChangePercent,
+            baseAsset: dataInfo.symbols[index].baseAsset,
+            quoteAsset: dataInfo.symbols[index].quoteAsset
+        }));
     }
 
     return{
         data,
+        error,
+        loading: false,
     }
 
 }
