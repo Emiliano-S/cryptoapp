@@ -6,7 +6,7 @@ import { FetchApi } from "./FetchApi";
 const columns = [
     {
         name: 'Base asset',
-        selector: row => row.baseAsset,
+        selector: row => <Link to={`/markets?base_assets=${row.baseAsset}`}>{row.baseAsset}</Link>,
     },
     {
         name: 'Totals',
@@ -38,29 +38,16 @@ export function Assets(){
 
     return(
         <>
-            <table>
-                <tr>
-                    <th>Base asset</th>
-                    <th>Amounts of coins</th>
-                </tr>
-                {arr.map((coin, index) =>{
-                    return <tr key={index}>
-                        <td>{<Link to={`/markets?base_assets=${coin.baseAsset}`}>{coin.baseAsset}</Link>}</td>
-                        <td>{coin.total}</td>
-                    </tr>
-                })}
-            </table>
-            {/* <KitchenSinkStory
-                    columns={columns}
-                    data={arr}
-                    direction="auto"
-                    fixedHeaderScrollHeight="300px"
-                    pagination
-                    responsive
-                    subHeaderAlign="right"
-                    subHeaderWrap
-                /> */}
-
+            <KitchenSinkStory
+                columns={columns}
+                data={arr}
+                direction="auto"
+                fixedHeaderScrollHeight="300px"
+                pagination
+                responsive
+                subHeaderAlign="right"
+                subHeaderWrap
+            />
         </>
     )
 }
