@@ -69,7 +69,7 @@ export function Markets(){;
     }
 
     const handleSearch = (input) =>{
-        const _list = [...data];
+        const _list = [...originalData];
 
         if(input !== ""){
           const filtered = _list.filter((value)=>value.symbol.match(new RegExp(input,"ig")))
