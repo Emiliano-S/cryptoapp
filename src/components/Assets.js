@@ -11,6 +11,7 @@ const columns = [
     {
         name: 'Totals',
         selector: row => row.total,
+        sortable: true,
     },
 ]
 
