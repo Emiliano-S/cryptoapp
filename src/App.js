@@ -12,6 +12,8 @@ function App() {
       <Routes>
         <Route path='/markets' element={<Markets />}/>
         <Route path='/asset' element={<Assets />} />
+        <Route path="/" element={<Assets />} />
+        <Route path="*" element={<Assets />} />
       </Routes>
     </>
   );
