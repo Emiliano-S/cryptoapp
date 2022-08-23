@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import KitchenSinkStory from 'react-data-table-component';
-
+import { FetchApi } from "./FetchApi";
 
 const columns = [
     {
@@ -8,46 +8,38 @@ const columns = [
         selector: row => row.baseAsset,
     },
     {
-        name: 'Quantity',
-        selector: row => row.baseAssetQuantity,
-    }
+        name: 'Totals',
+        selector: row => row.total,
+    },
 ]
 
-export function Assets({data}){
-    const [input, setInput] = useState("");
-    let [list, setList] = useState(data);
-
-
-    /* v Filtraggio dell'array mostrato in tabella "list" matchando il valore inserito nell'input "searchInput" v */
-
-    const handleInput = (event) =>{
-        setInput(event.target.value);
-    }
-
-    const handleSearch = (input) =>{
-        const _list = [...data];
-
-        if(input !== ""){
-          const filtered = _list.filter((value)=>value.symbol.match(new RegExp(input,"ig")))
-          setList(filtered);
-        }else{
-          setList(data);
-        }}
+export function Assets(){
+    const [arr, setArr] = useState([]);
+    const {data, loading, error, reload} = FetchApi('https://api.binance.com/api/v3/exchangeInfo');
 
     useEffect(()=>{
-        handleSearch(input)
-    },[input, data]);
+        if(data){
+           const tempObj = data.symbols.reduce((obj, value) => {
+            return {...obj, [value.baseAsset]: (obj[value.baseAsset] || 0) + 1};
+           }, {});
+
+           const _data = Object.keys(tempObj).map((key) => ({
+            baseAsset: key,
+            total: tempObj[key]
+           }));
+           setArr(_data);
+        }
+    },[data])
+
+
+    if(loading) return <p>Loading...</p>
+    if(error) return <p>Error: {error}</p>
 
     return(
-        <div>
-            <div>
-                <label for="searchInput">Search your coin: </label>
-                <input name="searchInput" onInput={handleInput} value={input} />
-            </div>
-            <div>
-                <KitchenSinkStory
+        <>
+            <KitchenSinkStory
                     columns={columns}
-                    data={list}
+                    data={arr}
                     direction="auto"
                     fixedHeaderScrollHeight="300px"
                     pagination
@@ -55,7 +47,7 @@ export function Assets({data}){
                     subHeaderAlign="right"
                     subHeaderWrap
                 />
-            </div>
-        </div>
+
+        </>
     )
 }
