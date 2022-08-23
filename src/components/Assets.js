@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import KitchenSinkStory from 'react-data-table-component';
+import { Link } from 'react-router-dom';
 import { FetchApi } from "./FetchApi";
 
 const columns = [
@@ -37,7 +38,19 @@ export function Assets(){
 
     return(
         <>
-            <KitchenSinkStory
+            <table>
+                <tr>
+                    <th>Base asset</th>
+                    <th>Amounts of coins</th>
+                </tr>
+                {arr.map((coin, index) =>{
+                    return <tr key={index}>
+                        <td>{<Link to={`/markets?base_assets=${coin.baseAsset}`}>{coin.baseAsset}</Link>}</td>
+                        <td>{coin.total}</td>
+                    </tr>
+                })}
+            </table>
+            {/* <KitchenSinkStory
                     columns={columns}
                     data={arr}
                     direction="auto"
@@ -46,7 +59,7 @@ export function Assets(){
                     responsive
                     subHeaderAlign="right"
                     subHeaderWrap
-                />
+                /> */}
 
         </>
     )
