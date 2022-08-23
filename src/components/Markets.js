@@ -32,9 +32,8 @@ const columns = [
 export function Markets(){;
     const [ searchParams ] = useSearchParams();
     const filterPage = searchParams.get('base_assets');
-
-
     const [data, setData] = useState([]);
+
     const { data: data1, loading: loading1, error: error1, reaload: reload1} = FetchApi('https://api.binance.com/api/v3/ticker/price');
     const { data: data2, loading: loading2, error: error2, reaload: reload2} = FetchApi('https://api.binance.com/api/v3/exchangeInfo');
     const { data: data3, loading: loading3, error: error3, reaload: reload3} = FetchApi('https://api.binance.com/api/v3/ticker/24hr');
